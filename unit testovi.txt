@@ -1,0 +1,143 @@
+package com.example.tests;
+
+import java.util.regex.Pattern;
+import java.util.concurrent.TimeUnit;
+import org.junit.*;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
+import org.openqa.selenium.*;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class UntitledTestCase {
+  private WebDriver driver;
+  private String baseUrl;
+  private boolean acceptNextAlert = true;
+  private StringBuffer verificationErrors = new StringBuffer();
+
+  @Before
+  public void setUp() throws Exception {
+    driver = new FirefoxDriver();
+    baseUrl = "https://www.katalon.com/";
+    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+  }
+
+  @Test
+  public void signUpTestCase() throws Exception {
+    driver.get("http://localhost:8080/se-project/auth/#");
+    driver.findElement(By.id("sign_up")).click();
+    driver.findElement(By.id("email")).clear();
+    driver.findElement(By.id("email")).sendKeys("haris");
+    driver.findElement(By.id("password")).clear();
+    driver.findElement(By.id("password")).sendKeys("123");
+    driver.findElement(By.id("firstname")).click();
+    driver.findElement(By.id("firstname")).clear();
+    driver.findElement(By.id("firstname")).sendKeys("Haris");
+    driver.findElement(By.id("lastname")).click();
+    driver.findElement(By.id("lastname")).clear();
+    driver.findElement(By.id("lastname")).sendKeys("Popovacc");
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).clear();
+    driver.findElement(By.id("email")).sendKeys("haris.popovac@stu.ibu.edu.ba");
+    driver.findElement(By.id("password")).click();
+    driver.findElement(By.id("password")).click();
+    // ERROR: Caught exception [ERROR: Unsupported command [doubleClick | id=password | ]]
+    driver.findElement(By.id("password")).clear();
+    driver.findElement(By.id("password")).sendKeys("1234");
+    driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Password'])[1]/following::button[1]")).click();
+    driver.findElement(By.id("login")).click();
+}
+ @Test
+  public void logInTestCase() throws Exception {
+    
+    driver.findElement(By.id("email")).clear();
+    driver.findElement(By.id("email")).sendKeys("haris@gmail.com");
+    driver.findElement(By.id("password")).click();
+    driver.findElement(By.id("password")).clear();
+    driver.findElement(By.id("password")).sendKeys("abc");
+    driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Password'])[1]/following::button[1]")).click();
+    driver.findElement(By.id("admin_panel")).click();
+    driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Find a Club'])[2]/following::button[1]")).click();
+}
+@Test
+  public void addGymTestCase() throws Exception {
+    driver.findElement(By.id("gymName")).click();
+    driver.findElement(By.id("gymName")).clear();
+    driver.findElement(By.id("gymName")).sendKeys("teretana");
+    driver.findElement(By.id("gymAddress")).click();
+    driver.findElement(By.id("gymAddress")).clear();
+    driver.findElement(By.id("gymAddress")).sendKeys("branilaca b.b");
+    driver.findElement(By.id("gymBasic_info")).click();
+    driver.findElement(By.id("gymBasic_info")).clear();
+    driver.findElement(By.id("gymBasic_info")).sendKeys("dd");
+    driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='info'])[1]/following::button[1]")).click();
+    driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Personal Trainers'])[1]/following::span[1]")).click();
+    driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Offer'])[1]/following::span[1]")).click();
+    driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Edit'])[2]/following::button[1]")).click();
+}@Test
+  public void logOutTestCase() throws Exception {
+    driver.findElement(By.linkText("Logout")).click();
+}
+@Test
+  public void updateAccountTestCase() throws Exception {
+    driver.findElement(By.id("update_account")).click();
+    driver.findElement(By.id("firstname")).click();
+    driver.findElement(By.id("firstname")).clear();
+    driver.findElement(By.id("firstname")).sendKeys("hariss");
+    driver.findElement(By.id("lastname")).click();
+    driver.findElement(By.id("lastname")).clear();
+    driver.findElement(By.id("lastname")).sendKeys("popa");
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).click();
+    // ERROR: Caught exception [ERROR: Unsupported command [doubleClick | id=email | ]]
+    driver.findElement(By.id("email")).clear();
+    driver.findElement(By.id("email")).sendKeys("haris@haris.com");
+    driver.findElement(By.id("password")).click();
+    driver.findElement(By.id("password")).clear();
+    driver.findElement(By.id("password")).sendKeys("4321");
+    driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Password'])[1]/following::button[1]")).click();
+  }
+
+  @After
+  public void tearDown() throws Exception {
+    driver.quit();
+    String verificationErrorString = verificationErrors.toString();
+    if (!"".equals(verificationErrorString)) {
+      fail(verificationErrorString);
+    }
+  }
+
+  private boolean isElementPresent(By by) {
+    try {
+      driver.findElement(by);
+      return true;
+    } catch (NoSuchElementException e) {
+      return false;
+    }
+  }
+
+  private boolean isAlertPresent() {
+    try {
+      driver.switchTo().alert();
+      return true;
+    } catch (NoAlertPresentException e) {
+      return false;
+    }
+  }
+
+  private String closeAlertAndGetItsText() {
+    try {
+      Alert alert = driver.switchTo().alert();
+      String alertText = alert.getText();
+      if (acceptNextAlert) {
+        alert.accept();
+      } else {
+        alert.dismiss();
+      }
+      return alertText;
+    } finally {
+      acceptNextAlert = true;
+    }
+  }
+}
