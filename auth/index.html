@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="en">
+    <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+            <title>SarajevoFit</title>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+            <link rel="stylesheet" type="text/css" href="custom.css" />
+            <link rel="stylesheet" href="index.css">
+            <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+                integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+            <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+ 
+        <title>Sarajevofit</title>
+ 
+        <!-- Bootstrap 4 CSS and custom CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" href="custom.css" />
+ 
+    </head>
+<body>
+ 
+<!-- navbar -->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#" >Sarajevofit</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="#" id='home'>Home</a>
+            <a class="nav-item nav-link" href="#" id='logout'>Logout</a>
+            <a class="nav-item nav-link" href="#" id='login'>Login</a>
+            <a class="nav-item nav-link" href="#" id='sign_up'>Sign Up</a>
+            <a class="nav-item nav-link" href="../index2.html" >Gyms</a>
+            <a class="nav-item nav-link" href="../index3.html" >Personal Trainers</a>
+            
+            <a class="nav-item nav-link" href="../index4.html" >Offer</a>
+
+            <a class="nav-item nav-link" href="#" id='update_account'>Account</a>
+            <a class="nav-item nav-link" href="../index.html" id='admin_panel'>Admin Panel</a>
+            
+        </div>
+    </div>
+</nav>
+<!-- /navbar -->
+ 
+<!-- container -->
+<main role="main" class="container starter-template">
+ 
+    <div class="row">
+        <div class="col">
+ 
+            <!-- where prompt / messages will appear -->
+            <div id="response"></div>
+ 
+            <!-- where main content will appear -->
+            <div id="content"></div>
+        </div>
+    </div>
+ 
+</main>
+<!-- /container -->
+<!-- jQuery & Bootstrap 4 JavaScript libraries -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ 
+<script>
+    // jQuery codes
+    $("#admin_panel").hide();
+    $(document).ready(function(){
+        
+        // show sign up / registration form
+        $(document).on('click', '#sign_up', function(){
+     
+            var html = `
+                <h2>Sign Up</h2>
+                <form id='sign_up_form'>
+                    <div class="form-group">
+                        <label for="firstname">Firstname</label>
+                        <input type="text" class="form-control" name="firstname" id="firstname" required />
+                    </div>
+     
+                    <div class="form-group">
+                        <label for="lastname">Lastname</label>
+                        <input type="text" class="form-control" name="lastname" id="lastname" required />
+                    </div>
+     
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" required />
+                    </div>
+     
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="password" id="password" required />
+                    </div>
+     
+                    <button type='submit' class='btn btn-primary'>Sign Up</button>
+                </form>
+                `;
+     
+            clearResponse();
+            $('#content').html(html);
+        });
+     
+        // trigger when registration form is submitted
+$(document).on('submit', '#sign_up_form', function(){
+ 
+ // get form data
+ var sign_up_form=$(this);
+ var form_data=JSON.stringify(sign_up_form.serializeObject());
+
+ // submit form data to api
+ $.ajax({
+     url: "api/create_user.php",
+     type : "POST",
+     contentType : 'application/json',
+     data : form_data,
+     success : function(result) {
+         // if response is a success, tell the user it was a successful sign up & empty the input boxes
+         $('#response').html("<div class='alert alert-success'>Successful sign up. Please login.</div>");
+         sign_up_form.find('input').val('');
+     },
+     error: function(xhr, resp, text){
+         // on error, tell the user sign up failed
+         $('#response').html("<div class='alert alert-danger'>Unable to sign up. Please contact admin.</div>");
+     }
+ });
+
+ return false;
+});
+     
+        // show login form
+$(document).on('click', '#login', function(){
+    $("#admin_panel").hide();
+    showLoginPage();
+});
+
+
+ 
+// trigger when login form is submitted
+$(document).on('submit', '#login_form', function(){
+ 
+ // get form data
+ var login_form=$(this);
+ var form_data=JSON.stringify(login_form.serializeObject());
+
+ // submit form data to api
+$.ajax({
+    url: "api/login.php",
+    type : "POST",
+    contentType : 'application/json',
+    data : form_data,
+    success : function(result){
+ 
+        // store jwt to cookie
+        setCookie("jwt", result.jwt, 1);
+ 
+        // show home page & tell the user it was a successful login
+        showHomePage();
+        $('#response').html("<div class='alert alert-success'>Successful login.</div>");
+ 
+    },
+    error: function(xhr, resp, text){
+    // on error, tell the user login has failed & empty the input boxes
+    $('#response').html("<div class='alert alert-danger'>Login failed. Email or password is incorrect.</div>");
+    login_form.find('input').val('');
+}
+});
+
+ return false;
+});
+
+// show home page
+$(document).on('click', '#home', function(){
+    showHomePage();
+    clearResponse();
+});
+ 
+// show update account form
+$(document).on('click', '#update_account', function(){
+    showUpdateAccountForm();
+});
+ 
+// trigger when 'update account' form is submitted
+$(document).on('submit', '#update_account_form', function(){
+ 
+ // handle for update_account_form
+ var update_account_form=$(this);
+
+ // validate jwt to verify access
+ var jwt = getCookie('jwt');
+
+ // get form data
+var update_account_form_obj = update_account_form.serializeObject()
+ 
+ // add jwt on the object
+ update_account_form_obj.jwt = jwt;
+  
+ // convert object to json string
+ var form_data=JSON.stringify(update_account_form_obj);
+  
+ // submit form data to api
+$.ajax({
+    url: "api/update_user.php",
+    type : "POST",
+    contentType : 'application/json',
+    data : form_data,
+    success : function(result) {
+ 
+        // tell the user account was updated
+        $('#response').html("<div class='alert alert-success'>Account was updated.</div>");
+ 
+        // store new jwt to coookie
+        setCookie("jwt", result.jwt, 1);
+    },
+ 
+    // show error message to user
+error: function(xhr, resp, text){
+    if(xhr.responseJSON.message=="Unable to update user."){
+        $('#response').html("<div class='alert alert-danger'>Unable to update account.</div>");
+    }
+ 
+    else if(xhr.responseJSON.message=="Access denied."){
+        showLoginPage();
+        $('#response').html("<div class='alert alert-success'>Access denied. Please login</div>");
+    }
+}
+});
+
+ return false;
+});
+
+// logout the user
+$(document).on('click', '#logout', function(){
+    $("#admin_panel").hide();
+    showLoginPage();
+    $('#response').html("<div class='alert alert-info'>You are logged out.</div>");
+}); 
+        // remove any prompt messages
+function clearResponse(){
+    $('#response').html('');
+}
+ 
+// show login page
+function showLoginPage(){
+ 
+ // remove jwt
+ setCookie("jwt", "", 1);
+
+ // login page html
+ var html = `
+     <h2>Login</h2>
+     <form id='login_form'>
+         <div class='form-group'>
+             <label for='email'>Email address</label>
+             <input type='email' class='form-control' id='email' name='email' placeholder='Enter email'>
+         </div>
+
+         <div class='form-group'>
+             <label for='password'>Password</label>
+             <input type='password' class='form-control' id='password' name='password' placeholder='Password'>
+         </div>
+
+         <button type='submit' class='btn btn-primary' >Login</button>
+
+     </form>
+     `;
+
+ $('#content').html(html);
+ clearResponse();
+ $("#admin_panel").hide();
+ showLoggedOutMenu();
+}
+
+// function to set cookie
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+// if the user is logged out
+function showLoggedOutMenu(){
+    // show login and sign up from navbar & hide logout button
+    $("#login, #sign_up").show();
+    $("#logout").hide();
+    $("#admin_panel").hide();
+}
+ 
+// show home page
+function showHomePage(){
+ 
+ // validate jwt to verify access
+ var jwt = getCookie('jwt');
+ $.post("api/validate_token.php", JSON.stringify({ jwt:jwt })).done(function(result) {
+// if valid, show homepage
+var html = `
+<!-- Rooms Section -->
+	<section class="hero" id="rooms">
+		<div class="hero-body">
+			<div class="container">
+				<div class="rooms columns">
+					<!-- z5 -->
+					<div class="column">
+						<figure class="image">
+							<img src="res/gym5.jpg" alt="House of Wariors">
+						</figure>
+
+						<div class="content">
+							<div></div>
+							<h1 class="title is-6">House of Wariors</h1>
+							<p>House of Warriors je jedinstven sadržaj u našem gradu i prvi visokoopremljeni fighting
+								gym.
+								Ako ste oduvijek željeli naučiti tehnike borilačkih sportova kao sto su box i kickbox
+								ovo je prava prilika.
+							</p>
+						</div>
+						<a class="button is-primary open-modal" href="yourpage.html">Join now</a>
+					</div>
+
+					<!-- z5 -->
+					<div class="column">
+						<figure class="image">
+							<img src="res/gym6.jpg" alt="Sportska Akademija Respect">
+						</figure>
+
+						<div class="content">
+							<div></div>
+							<h1 class="title is-6">Sportska Akademija Respect</h1>
+							<p>Sportska akademija "Respect" - Sarajevo egzistira od 11.12.2013. godine .
+								Akademija je osnovana u Sarajevu sa ciljem da svoja znanja prenesu budućim mladim
+								sportistima.</p>
+						</div>
+						<a class="button is-primary open-modal" href="yourpage.html">Join now</a>
+					</div>
+
+					<!-- z5 -->
+					<div class="column">
+						<figure class="image">
+							<img src="res/gym7.jpeg" alt="ALL IN fitness">
+						</figure>
+
+						<div class="content">
+							<div></div>
+							<h1 class="title is-6">ALL IN Fitness</h1>
+							<p>ALL IN Fitness centar posjeduje savremeno opremljenu salu za grupne treninge, dječiju
+							0	igraonicu, caffeteriju, kao i protein shop.
+								Pruzamo neograničene mogućnosti za vaš napredak. Pridruzite se danas! </p>
+						</div>
+						<a class="button is-primary open-modal" href="yourpage.html">Join now</a>
+					</div>
+
+					<!-- z5 -->
+					<div class="column">
+						<figure class="image">
+							<img src="res/gym8.jpg" alt="Fitness klub Shark">
+						</figure>
+
+						<div class="content">
+							<div></div>
+							<h1 class="title is-6">Fitness klub Shark</h1>
+							<p>Fitness klub Shark se nalazi na adresi Jošanička br. 55 u sklopu jedinstvenog i moderno
+								koncipiranog poslovnog centra WOG u Vogošći.
+								Za sve one koji žele početi sa vježbanjem i zdravim životom.
+							</p>
+						</div>
+						<a class="button is-primary open-modal" href="yourpage.html">Join now</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+    <!-- ./Rooms Section -->
+    <!-- About Section -->
+	<section class="hero" id="about-us">
+		<div class="hero-body">
+			<div class="container">
+				<div class="content">
+					<h4 class="main_title title is-4">Explore SarajvoFit</h4>
+				</div>
+
+				<div class="columns content">
+					<div class="column">
+						<p>
+							We offer you all of your fitness center in one place!</p>
+
+						<div class="reception">
+
+							<h5 class="main_title title is-5">Reception</h5>
+
+							<div class="reception-item">
+								<div>
+									<div>
+										<i class="fa fa-phone"></i>
+										<span>Phone Number</span>
+									</div>
+									<a href="tel:+302109999999">+387 33 12 34 56</a>
+								</div>
+								<a href="tel:+302109999999" class="button mobile-only">
+									<span>Call</span>
+								</a>
+							</div>
+
+							<div class="reception-item">
+								<div>
+									<div>
+										<i class="fa fa-phone"></i>
+										<span>Reservation</span>
+									</div>
+									<a href="tel:+302109999997">+387 33 12 34 56</a>
+								</div>
+								<a href="tel:+302109999997" class="button mobile-only">
+									<span>Call</span>
+								</a>
+							</div>
+
+							<div class="reception-item">
+								<div>
+									<div>
+										<i class="fa fa-envelope"></i>
+										<span>Email</span>
+									</div>
+									<a href="mailto:reservations@bulmahotels.com">reservations@sarajevofit.com</a>
+								</div>
+								<a href="mailto:reservations@bulmahotels.com" class="button mobile-only">
+									<span>Mail</span>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<!-- Reception Image -->
+					<div class="column reception-image">
+						<img src="b.jpg">
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</section>
+    <!-- ./About Section -->
+    <!-- personal trainers Section -->
+	<!-- Rooms Section -->
+	<section class="hero" id="rooms">
+		<div class="hero-body">
+			<div class="container">
+				<div class="rooms columns">
+					<!-- z5 -->
+					<div class="column">
+						<figure class="image">
+							<img src="res/tr1.jpg" alt="Andre">
+						</figure>
+
+						<div class="content">
+							<div></div>
+							<h1 class="title is-6">Andre</h1>
+							<p>Andre holds a BS in Physical Education as well as a MS in Exercise Science and Health
+								Promotion. He is a Certified Strength and Conditioning Specialist.
+								He has a background in health and fitness as well as performance training.
+							</p>
+							<a class="button is-primary open-modal" href="#">Book a training</a>
+						</div>
+					</div>
+
+					<!-- z5 -->
+					<div class="column">
+						<figure class="image">
+							<img src="res/tr2.jpg" alt="Brian">
+						</figure>
+
+						<div class="content">
+							<div></div>
+							<h1 class="title is-6">Brian</h1>
+							<p>Brian integrates his knowledge as a strength and conditioning specialist in designing an
+								individualized, progressive program of cardiovascular,
+								mobility, core, and strength training exercises for his clients based on their fitness
+								goals.
+							</p>
+							<a class="button is-primary open-modal" href="#">Book a training</a>
+						</div>
+					</div>
+
+					<!-- z5 -->
+					<div class="column">
+						<figure class="image">
+							<img src="res/tr3.jpg" alt="Christopher">
+						</figure>
+
+						<div class="content">
+							<div></div>
+							<h1 class="title is-6">Christopher</h1>
+							<p>Christopher is a Certified Strength and Condition Specialist with the National Strength
+								and Conditioning Association. He has an background
+								from training athletes to working professionals with nominal experience in fitness. </p>
+							<a class="button is-primary open-modal" href="#">Book a training</a>
+						</div>
+					</div>
+
+					<!-- z5 -->
+					<div class="column">
+						<figure class="image">
+							<img src="res/tr4.jpg" alt="Eshet">
+						</figure>
+
+						<div class="content">
+							<div></div>
+							<h1 class="title is-6">Eshet</h1>
+							<p>Eshet holds a certification as a NASM CPT and CES. Growing up he loved playing soccer and
+								trying to improve himself. In pursuit of advancing his skills,
+								he began including various types of workouts and gained a new perspective.
+							</p>
+							<a class="button is-primary open-modal" href="#">Book a training</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ./Rooms Section -->
+
+	<!-- Contact Us Section -->
+	<section class="hero" id="contact-us">
+		<div class="hero-body">
+			<div class="container">
+				<div>
+					<div class="content">
+						<h4 class="title is-4">Contact Us</h4>
+					</div>
+					<h6 class="subtitle is-6">If you've any queries feel free to contact us</h6>
+
+					<div class="columns box">
+						<form class="column" action="#">
+							<div class="field">
+								<label class="label">Name</label>
+								<div class="control">
+									<input class="input" type="text" placeholder="Your Name" required="">
+								</div>
+							</div>
+
+							<div class="field">
+								<label class="label">Email</label>
+								<div class="control">
+									<input class="input" type="text" placeholder="Email address" required="">
+								</div>
+							</div>
+
+							<div class="field">
+								<label class="label">Phone Number</label>
+								<div class="control">
+									<input class="input" type="text" placeholder="Phone number" required="">
+								</div>
+							</div>
+
+							<div class="field">
+								<label class="label">Message</label>
+								<div class="control">
+									<textarea class="textarea" type="text" placeholder="Type your message here..."
+										required=""></textarea>
+								</div>
+							</div>
+
+							<div class="field">
+								<label class="label"></label>
+								<div class="control">
+									<input class="button is-primary" type="submit">
+								</div>
+							</div>
+						</form>
+
+						<div class="column">
+							<iframe width="100%" height="100%" frameborder="0" style="border:0"
+								src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d2965.0824050173574!2d-93.63905729999999!3d41.998507000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1s%2C+Ames%2C+IA!5e0!3m2!1sen!2sus!4v1390839289319"
+								allowfullscreen></iframe>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ./Contact Us Section -->
+    `;
+ 
+$('#content').html(html);
+showLoggedInMenu();
+ })
+
+ // show login page on error
+.fail(function(result){
+    showLoginPage();
+    $('#response').html("<div class='alert alert-danger'>Please login to access the home page.</div>");
+});
+}
+
+// get or read cookie
+function getCookie(cname){
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' '){
+            c = c.substring(1);
+        }
+ 
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+// if the user is logged in
+function showLoggedInMenu(){
+    // hide login and sign up from navbar & show logout button
+    $("#login, #sign_up").hide();
+    $("#logout").show();
+    $("#admin_panel").show();
+}
+ 
+function showUpdateAccountForm(){
+    $("#admin_panel").show();
+    // validate jwt to verify access
+    var jwt = getCookie('jwt');
+    $.post("api/validate_token.php", JSON.stringify({ jwt:jwt })).done(function(result) {
+ 
+        // if response is valid, put user details in the form
+var html = `
+        <h2>Update Account</h2>
+        
+        <form id='update_account_form'>
+            <div class="form-group">
+                <label for="firstname">Firstname</label>
+                <input type="text" class="form-control" name="firstname" id="firstname" required value="` + result.data.firstname + `" />
+            </div>
+ 
+            <div class="form-group">
+                <label for="lastname">Lastname</label>
+                <input type="text" class="form-control" name="lastname" id="lastname" required value="` + result.data.lastname + `" />
+            </div>
+ 
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" name="email" id="email" required value="` + result.data.email + `" />
+            </div>
+ 
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" id="password" />
+            </div>
+ 
+            <button type='submit' class='btn btn-primary'>
+                Save Changes
+            </button>
+            
+        </form>
+    `;
+ 
+clearResponse();
+$('#content').html(html);
+    })
+ // on error/fail, tell the user he needs to login to show the account page
+.fail(function(result){
+    showLoginPage();
+    $('#response').html("<div class='alert alert-danger'>Please login to access the account page.</div>");
+});
+}
+ 
+// function to make form values to json format
+$.fn.serializeObject = function(){
+ 
+ var o = {};
+ var a = this.serializeArray();
+ $.each(a, function() {
+     if (o[this.name] !== undefined) {
+         if (!o[this.name].push) {
+             o[this.name] = [o[this.name]];
+         }
+         o[this.name].push(this.value || '');
+     } else {
+         o[this.name] = this.value || '';
+     }
+ });
+ return o;
+};
+    });
+    </script>
+ 
+</body>
+</html>
