@@ -2,7 +2,8 @@
 
 require 'flight/Flight.php';
 
-Flight::register('db', 'PDO', array('mysql:host=localhost;dbname=gymapp_db','root',''));
+Flight::register('db', 'PDO', array('mysql:host=jfrpocyduwfg38kq.chr7pe7iynqr.eu-west-1.rds.amazonaws.com	;dbname=f47vjrc8rc7igrlt','qwycn4m9tlxxfq1f','dr2zfq5w9lybhusq'));
+
 
 Flight::route('GET /gyms', function(){
     $skip = Flight::request()->query['skip'];
